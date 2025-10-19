@@ -1,7 +1,7 @@
 app = "nfcbackend"
 
 [build]
-  image = "Dockerfile"
+  dockerfile = "Dockerfile"
 
 [env]
   PORT = "8080"
@@ -18,7 +18,9 @@ app = "nfcbackend"
     handlers = ["tls", "http"]
     port = 443
 
-  [[services.tcp_checks]]
+  [[services.http_checks]]
+    path = "/health"
     interval = 10000
     timeout = 2000
-    port = 8080
+    method = "get"
+    tls = false
